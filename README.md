@@ -22,6 +22,18 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Smarter Scheduling
+
+The scheduler goes beyond the basic greedy planner with several new features:
+
+- Sort order: tasks are sorted by priority first, then by time-of-day window so morning tasks always come before afternoon ones at the same priority level. Tasks marked "any" fill leftover slots last.
+- Skip, don't stop: if a task does not fit the remaining time budget the scheduler skips it and keeps going, so a shorter task later in the list can still be placed.
+- Adjustable buffer: each owner has a configurable gap between tasks (default 5 minutes) that counts against the daily budget and gives the owner real transition time.
+- Recurring tasks: tasks can be set to repeat daily, weekly, or just once. Completing a recurring task automatically creates a fresh copy for the next run.
+- Sort by time: the generated plan can be returned in strict chronological order using an actual time comparison, not alphabetical string sorting.
+- Filter tasks: tasks across all pets can be filtered by pet name, completion status, or both.
+- Conflict detection: the scheduler checks for overlapping tasks within one pet's plan and across different pets. It returns plain warning messages instead of crashing the program.
+
 ## Getting started
 
 ### Setup

@@ -32,12 +32,20 @@
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
+  - Time budget: the owner's available hours cap how many minutes of tasks can fit in a day.
+  - Priority: tasks are ranked high, medium, low. Higher priority tasks are always placed first.
+  - Time-of-day preference: each task has a preferred window (morning, afternoon, evening, or any). The scheduler jumps its clock forward to that window if it hasn't arrived yet.
+  - Task buffer: a configurable gap between tasks gives the owner transition time and counts against the daily budget.
+  - Completion status: already-done tasks are filtered out before scheduling so they never take up time.
 - How did you decide which constraints mattered most?
+  - Priority first, because critical tasks like feeding or medication must be protected on a busy day. Time budget second, since the whole point is fitting care into a real schedule. Time-of-day preference is softer, so the scheduler places a task late rather than skipping it if the preferred window has passed.
 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
+  - The scheduler is greedy and single-pass. It sorts tasks once by priority, then places them in order using a moving clock. If a task does not fit the remaining budget it is skipped, and the scheduler never goes back to try a different order that might fit more tasks in.
 - Why is that tradeoff reasonable for this scenario?
+  - A pet owner rarely has more than a handful of tasks in a day, so greedy works well in practice. The most important tasks always get placed first because they are sorted to the top. A backtracking solver would be harder to build and explain, and the payoff would only ever be fitting one or two extra low-priority tasks.
 
 ---
 
