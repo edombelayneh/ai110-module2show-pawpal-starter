@@ -228,6 +228,49 @@ else:
 
     if st.button("Generate schedule"):
         from datetime import date
+        from pawpal_system import detect_conflicts
+
         schedule = Schedule(pet=sched_pet, date=str(date.today()))
         schedule.generate()
-        st.text(schedule.explain())
+
+        # --- Conflict warnings ---
+        conflicts = detect_conflicts([schedule])
+        if conflicts:
+            st.warning(
+                f"**{len(conflicts)} scheduling conflict(s) found.** "
+                "Two tasks are scheduled at the same time — adjust a duration or time window to fix this."
+            )
+            for msg in conflicts:
+                # Strip the raw "WARNING [...]: " prefix for a friendlier label
+                friendly = msg.replace("WARNING ", "").strip()
+                # cross-pet conflicts use a different icon to distinguish them
+                icon = "🐾" if "[cross-pet]" in msg else "⏰"
+                st.warning(f"{icon} {friendly}")
+        else:
+            st.success("No conflicts — your schedule looks good!")
+
+        # --- Scheduled tasks table ---
+        if schedule.plan:
+            st.markdown(f"**{sched_pet.name}'s plan for {date.today()}**")
+            st.table([
+                {
+                    "Time": e.start_time,
+                    "Task": e.task.title,
+                    "Duration": f"{e.task.duration_minutes} min",
+                    "Priority": e.task.priority.capitalize(),
+                    "Window": e.task.time_of_day.capitalize(),
+                    "Note": e.reason,
+                }
+                for e in schedule.sort_by_time()
+            ])
+            total = sum(e.task.duration_minutes for e in schedule.plan)
+            budget = int(sched_pet.owner.available_hours * 60)
+            st.caption(f"Time used: {total} min / {budget} min available")
+
+        # --- Tasks that didn't fit ---
+        if schedule.skipped:
+            skipped_names = ", ".join(f"**{t.title}**" for t in schedule.skipped)
+            st.warning(
+                f"These tasks didn't fit in today's schedule: {skipped_names}. "
+                "Try increasing available hours or removing lower-priority tasks."
+            )

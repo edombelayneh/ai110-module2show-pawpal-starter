@@ -22,6 +22,8 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Demo
+
 ## Smarter Scheduling
 
 The scheduler goes beyond the basic greedy planner with several new features:
@@ -33,6 +35,25 @@ The scheduler goes beyond the basic greedy planner with several new features:
 - Sort by time: the generated plan can be returned in strict chronological order using an actual time comparison, not alphabetical string sorting.
 - Filter tasks: tasks across all pets can be filtered by pet name, completion status, or both.
 - Conflict detection: the scheduler checks for overlapping tasks within one pet's plan and across different pets. It returns plain warning messages instead of crashing the program.
+
+## Testing PawPal+
+
+Run tests with:
+
+```bash
+python -m pytest tests/test_pawpal.py -v
+```
+
+The 23 tests cover four areas:
+
+- Sorting correctness: tasks return in true chronological order, high priority before low, constrained windows before "any"
+- Recurrence logic: completing a daily/weekly task creates a new pending copy; once tasks do not
+- Conflict detection: overlapping tasks are flagged, adjacent tasks are not, cross-pet conflicts are caught
+- Budget edge cases: exact-fit tasks are scheduled, oversized tasks are skipped, completed tasks are excluded
+
+Confidence level: 4 / 5 stars. Core scheduling logic is fully tested. The UI layer, explain() output, and late wake_time edge cases are not yet covered.
+
+---
 
 ## Getting started
 
