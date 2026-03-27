@@ -5,20 +5,25 @@
 **a. Initial design**
 
 - Briefly describe your initial UML design.
-  - The tasks i want to have:
-    1. Add pet
-    2. Add tasks
-       - Feed, walk, bathe, play with, get shots
-    3. View schedule
+  - The objects I want to have:
+    1. Pet
+    2. Task (e.g. feed, walk, bathe, play, get shots)
+    3. Schedule
+    4. Owner
 - What classes did you include, and what responsibilities did you assign to each?
-  - pet: name, animal type, tasks, schedule (rename/edit)
-  - task: name, priority, cost, time of day (add, edit, delete)
-  - schedule: pet, day, tasks (add, delete)
+  - Owner: name, available hours, wake time
+  - Task: title, duration (minutes), priority, time of day — supports editing via edit()
+  - Pet: name, species, owner, list of tasks — can add/remove tasks
+  - Schedule: pet + date → generates a daily plan and explains it in plain text
 
 **b. Design changes**
 
 - Did your design change during implementation?
+  - Yes.
 - If yes, describe at least one change and why you made it.
+  - I replaced cost with duration_minutes on Task — the scheduler works with time, not money, so duration is what actually matters.
+  - I made Owner its own class so the scheduler can read things like available hours and wake time without digging into Pet.
+  - Tasks moved from Schedule to Pet, since a pet's tasks don't change day to day — Schedule just uses them to build that day's plan.
 
 ---
 
