@@ -5,7 +5,15 @@
 **a. Initial design**
 
 - Briefly describe your initial UML design.
+  - The tasks i want to have:
+    1. Add pet
+    2. Add tasks
+       - Feed, walk, bathe, play with, get shots
+    3. View schedule
 - What classes did you include, and what responsibilities did you assign to each?
+  - pet: name, animal type, tasks, schedule (rename/edit)
+  - task: name, priority, cost, time of day (add, edit, delete)
+  - schedule: pet, day, tasks (add, delete)
 
 **b. Design changes**
 
