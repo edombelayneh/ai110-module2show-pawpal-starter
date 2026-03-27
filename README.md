@@ -22,7 +22,16 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+
 ## Demo
+
+<img width="728" height="759" alt="Screenshot 2026-03-27 at 4 45 36 PM" src="https://github.com/user-attachments/assets/9fc2206a-4d5f-4e1b-accb-38a4d19a90e6" />
+
+<img width="728" height="763" alt="Screenshot 2026-03-27 at 4 46 11 PM" src="https://github.com/user-attachments/assets/4e315fca-e200-4b20-8276-451d13127f1d" />
+
+<img width="814" height="736" alt="Screenshot 2026-03-27 at 4 45 08 PM" src="https://github.com/user-attachments/assets/6e68cb13-e05e-4efc-8236-990a114c03ba" />
+
+
 
 ## Smarter Scheduling
 
